@@ -1,7 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-//User Input prompts
+//User Input variables
 var passwordLength = 0;
 var useLowerCase = Boolean;
 var useUpperCase = Boolean;
@@ -103,21 +103,23 @@ function generatePassword() {
   ) {
     alert("At least one character type must be chosen!");
   }
+  //if statements to form full string charset
   if (useLowerCase) {
     tempPassword = tempPassword.concat(lowerCase);
-  }
-  if (useUpperCase) {
-    tempPassword = tempPassword.concat(upperCase);
   }
   if (useNumber) {
     tempPassword = tempPassword.concat(number);
   }
+  if (useUpperCase) {
+    tempPassword = tempPassword.concat(upperCase);
+  }
   if (useSpecialChar) {
     tempPassword = tempPassword.concat(specialChar);
   }
+  //function to generate password
   let userPassword = tempPassword;
-  userPassword.shuffle(passwordLength);
-  return userPassword.join("");
+  userPassword.shuffle();
+  return userPassword.slice(0, passwordLength).join("");
 }
 
 // Write password to the #password input
@@ -131,11 +133,12 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+//function to randomize password
 Array.prototype.shuffle = function () {
   let input = this;
 
-  for (let i = 0; i <= passwordLength; i++) {
-    let randomIndex = Math.floor(Math.random() * (passwordLength));
+  for (let i = 10; i <= tempPassword.length - 1; i++) {
+    let randomIndex = Math.floor(Math.random() * (i + 1));
     let itemAtIndex = input[randomIndex];
 
     input[randomIndex] = input[i];
